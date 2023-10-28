@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/output.css">
+</head>
+
+<body>
+    <form action="#" method="get" autocomplete="off"
+        class="w-full max-w-lg mx-auto flex items-center  justify-center gap-6">
+        <label for="js-task-input">Task Name</label>
+        <input type="text" id="js-task-input"
+            class=" w-72 mt-2 px-2 py-1 rounded  mb-3  text-black border-2 border-black">
+        <button type="submit" id="js-add-task"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded-full border-2 border-black">Add</button>
+    </form>
+    <ul id="js-tasks">
+
+    </ul>
+    <script type="module" src="../src/todo.js"></script>
+</body>
+
+
+</html>
