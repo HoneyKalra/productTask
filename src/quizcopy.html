@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <!-- Include the Tailwind CSS file -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="container mx-auto my-8 p-8 bg-white rounded-lg shadow-md">
+        <div id="quiz-container">
+            <div id="question-container" class="text-xl mb-4"></div>
+            <form id="options-container" class="flex flex-col gap-4"></form>
+            <button type="button" onclick="checkAnswer(); nextQuestion();"
+                class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Next</button>
+            <div id="result" class="font-bold mt-4"></div>
+            <div id="score" class="font-bold mt-4"></div>
+            <button type="button" onclick="restartQuiz()"
+                class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Restart</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the capital of India?",
+                options: ["India", "Berlin", "Madrid", "Rome"],
+                correctAnswer: "Paris"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                options: ["Earth", "Mars", "Jupiter", "Venus"],
+                correctAnswer: "Mars"
+            },
+            {
+                question: "What is the largest mammal in the world?",
+                options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+                correctAnswer: "Blue Whale"
+            }
+            // Add more questions as needed
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const questionContainer = document.getElementById("question-container");
+            const optionsContainer = document.getElementById("options-container");
+
+            questionContainer.textContent = currentQuestion.question;
+
+            optionsContainer.innerHTML = "";
+            currentQuestion.options.forEach((option, index) => {
+                const optionElement = document.createElement("label");
+                optionElement.className = "block cursor-pointer";
+                optionElement.innerHTML = `
+                <input type="radio" name="option" value="${index}">
+                <span class="ml-2">${option}</span>
+            `;
+                optionsContainer.appendChild(optionElement);
+            });
+        }
+
+        function checkAnswer() {
+            const selectedOption = document.querySelector('input[name="option"]:checked');
+            if (!selectedOption) {
+                return; // No option selected
+            }
+
+            const selectedIndex = parseInt(selectedOption.value, 10);
+            const currentQuestion = quizData[currentQuestionIndex];
+            const resultContainer = document.getElementById("result");
+            const scoreContainer = document.getElementById("score");
+
+            if (currentQuestion.correctAnswer === currentQuestion.options[selectedIndex]) {
+                score++;
+                resultContainer.textContent = "Correct!";
+            } else {
+                resultContainer.textContent = "Wrong! The correct answer is: " + currentQuestion.correctAnswer;
+            }
+
+            // Disable options after answering
+            const options = document.querySelectorAll('input[name="option"]');
+            options.forEach(option => option.disabled = true);
+
+            scoreContainer.textContent = "Score: " + score;
+        }
+
+        function nextQuestion() {
+            const resultContainer = document.getElementById("result");
+            resultContainer.textContent = ""; // Clear previous result
+
+            // Enable options for the next question
+            const options = document.querySelectorAll('input[name="option"]');
+            options.forEach(option => option.disabled = false);
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                // Display final score when all questions are answered
+                document.getElementById("question-container").textContent = "Quiz completed!";
+                document.getElementById("options-container").innerHTML = "";
+                document.getElementById("result").textContent = "Your final score is: " + score + " out of " + quizData.length;
+                document.getElementById("score").textContent = "Score: " + score; // Display the final score
+                document.getElementsByTagName("button")[0].style.display = "none"; // Hide the "Next" button
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementsByTagName("button")[0].style.display = "block"; // Show the "Next" button
+            loadQuestion();
+            document.getElementById("result").textContent = "";
+            document.getElementById("score").textContent = "";
+        }
+
+        // Initial load function called//
+        loadQuestion();
+    </script>
+
+</body>
+
+</html>

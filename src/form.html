@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/css/output.css">
+</head>
+
+<body>
+    <section class="flex items-center justify-center">
+
+        <form id="myForm">
+            <div class="flex my-2 ">
+                <label for="js-username">UserName:</label>
+                <input
+                    class="validateList shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="js-username" type="text">
+            </div>
+
+            <div class="flex my-2">
+                <label for="js-email">Email:</label>
+                <input
+                    class="validateList shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="js-email" type="text">
+
+            </div>
+
+            <div class="flex my-2">
+                <label for="js-password">Password:</label>
+                <input
+                    class="validateList shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="js-password" type="text">
+
+
+            </div>
+            <div class="flex my-2">
+                <label for="js-confirmPassword">Confirm Password:</label>
+                <input
+                    class="validateList shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="js-confirmPassword" type="text">
+                <select name="" id="">
+                    <option value="choose your gender" selected>Choose your Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+            </div>
+
+
+
+
+            <button id="js-submit" type="button"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Submit
+            </button>
+        </form>
+    </section>
+
+
+</body>
+<script src="../src/form.js"></script>
+
+</html>

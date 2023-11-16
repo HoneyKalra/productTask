@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="../public/css/output.css">
+
+
+</head>
+
+<body class="bg-gray-100">
+
+    <div class="container mx-auto my-8 p-8 bg-white rounded-lg shadow-md">
+        <div id="quiz-container">
+            <div id="question-container" class="text-xl mb-4"></div>
+            <form id="options-container" class="flex flex-col gap-4"></form>
+            <button type="button" onclick="checkAnswer(); nextQuestion();"
+                class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Next</button>
+            <div id="result" class="font-bold mt-4"></div>
+            <div id="score" class="font-bold mt-4"></div>
+            <button type="button" onclick="restartQuiz()"
+                class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700">Restart</button>
+        </div>
+    </div>
+</body>
+
+<script src="../src/quiz.js"></script>
+
+</html>

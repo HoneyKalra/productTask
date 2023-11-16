@@ -42,7 +42,7 @@ function setAttributes(el, attrs) {
 let allTasks = JSON.parse(localStorage.getItem("allTasks")) || [];//task is taken as an empty object //
 let allTasksCopy = [...allTasks]; //copy will help in filtering items//
 
-if (localStorage.getItem("allTasks")) {
+if (localStorage.getItem("allTasks")||!taskSearch.value ) {
   allTasks.map((task) => {
     createTask(task);
 
@@ -118,8 +118,10 @@ function createTask(task) {
 //addition of tasks //
 
 let addTask = function (ev) {
+  taskInput.value=taskInput.value.toLowerCase().trim();
   ev.preventDefault();
   if (!taskInput.value) {
+  
     return;
   }
   //if value is truthy//
@@ -128,7 +130,6 @@ let addTask = function (ev) {
   task.title = taskInput.value;//property created of obj task//
   task.completed = false;//property created of obj task//
   //adding task(obj) to array//  
-
   allTasks.unshift(task);
   allTasksCopy = [...allTasks];//creating a copy which we won't mutate//
   localStorage.setItem("allTasks", JSON.stringify(allTasks));
@@ -157,7 +158,6 @@ function suggestedTasks(value) {
       })
     }
 
-
   }
 }
 
@@ -168,24 +168,32 @@ function relevantTasks(ev) {
   if (valueEntered) {
     suggestedTasks(valueEntered);//suggested tasks has been called with users' value//
   }
+  else{
+    if(!taskSearch.value){
+      allTasks.map((task)=>{
+        createTask(task);
+      })  
+  }
+
+  }
 
 }
 // search functionality functions ends here//
 
-//All events listeners---//
+//All events listeners here---//
 
 //filtering on the basis of dropdown click//
 filterDropDown.addEventListener("click", function (ev) {
   let optionSelected = ev.target.value;
   optionSelected = optionSelected.toLowerCase();
   
+
   if (optionSelected === "all") {
     allTasks = allTasksCopy;
     localStorage.setItem("alltasks", JSON.stringify(allTasks));
     tasks.innerHTML = "";
     allTasks.map((task) =>
       createTask(task));
-      
   }
    if(taskSearch.value.length>0){
         allTasksCopy.filter((task)=>task.title.toLowerCase().startsWith(taskSearch.value))
@@ -201,7 +209,7 @@ filterDropDown.addEventListener("click", function (ev) {
       createTask(task));
     if(taskSearch.value.length>0){
         tasksTodisplay.filter((task)=>task.title.toLowerCase().startsWith(taskSearch.value))
-   }
+    }
   }
 
   if (optionSelected === "incomplete") {
@@ -213,7 +221,7 @@ filterDropDown.addEventListener("click", function (ev) {
       createTask(task));
     if(taskSearch.value.length>0){
         tasksTodisplay.filter((task)=>task.title.toLowerCase().startsWith(taskSearch.value))
-   }  
+    }  
 
   }
 
