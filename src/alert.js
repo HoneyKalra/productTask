@@ -43,7 +43,7 @@ function showAlert() {
 
         setTimeout(() => {
             removeElement(alert);
-        }, 3000);
+        }, 5000);
     });
 }
 

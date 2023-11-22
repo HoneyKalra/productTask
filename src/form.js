@@ -65,7 +65,5 @@ function displayError(field, message) {
     });
 }*/
 //event listener//'
-
-for(let lists of allLists){
 submitBtn.addEventListener("click",validateForm)
-}
+
