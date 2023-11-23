@@ -1,8 +1,9 @@
 let Editid = new URLSearchParams(window.location.search).get('id');
 let storageData = JSON.parse(localStorage.getItem('users'));
+//getting elements//
+const submitBtn = document.getElementById("submit-btn");
 let fileInput = document.getElementById('fileInput');
-
-
+//for copying the user data on the time of edit//
 storageData.forEach(element => {
     if (element.id == Editid) {
         document.getElementById('firstName').value = element.firstName;
@@ -20,7 +21,6 @@ storageData.forEach(element => {
 });
 
 
-const submitBtn = document.getElementById("submit-btn");
 // Function to get users from localStorage
 function getUsersFromLocalStorage() {
     const storedUsers = localStorage.getItem("users");
@@ -77,7 +77,8 @@ function submitForm(event) {
                 console.log("reader result: ", reader.result);
                 user.image = reader.result;
                 console.log("user.image updated: ", user);
-
+                console.log(users);
+                saveUsersToLocalStorage(users)//saving to local storage// 
 
             },
             false,
@@ -85,7 +86,9 @@ function submitForm(event) {
 
         if (selectedFile) {
             reader.readAsDataURL(selectedFile);
+
         }
+
         // Inside the submitForm function, before the redirection
         console.log("Final user object: ", user);
         // console.log(selectedFile);
@@ -99,7 +102,6 @@ function submitForm(event) {
             if (index !== -1) {
                 users[index] = user;//replacing the previous user with updated one//
                 saveUsersToLocalStorage(users);
-
                 // Redirect to the user list page
                 window.location.href = 'usersList.html';
 
@@ -114,9 +116,7 @@ function submitForm(event) {
             console.log(users);
 
 
-
             // Save the updated array to local storage
-
             saveUsersToLocalStorage(users);
             // Redirect to the user list page
             window.location.href = 'usersList.html';
@@ -135,11 +135,6 @@ function submitForm(event) {
         displayErrorMessages(validationResults.errors);
     }
 }
-
-
-
-
-
 
 function validateForm() {
     // Validate required fields
@@ -260,4 +255,4 @@ function displayErrorMessages(errors) {
 submitBtn.addEventListener("click", submitForm)
 submitBtn.addEventListener("click", validateForm)
 
-// fileInput.addEventListener('change', imageUpdateHandler);
+
