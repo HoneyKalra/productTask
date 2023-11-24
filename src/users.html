@@ -65,6 +65,21 @@
                 <input type="tel" id="phoneNumber" name="phoneNumber" class="mt-1 p-2 w-full border rounded-md">
                 <div id="phoneNumberError" class="text-red-500 text-sm mt-1"></div>
             </div>
+            <!--Blood Group-->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600">Blood Group</label>
+                <select name="bloodGroup" id="bloodGroup" class="mt-1 p-2 w-full border rounded-md">
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+
 
             <!-- Current Address -->
             <div class="mb-4">
@@ -79,6 +94,13 @@
                 <input type="checkbox" id="sameAsPermanent" name="sameAsPermanent" class="mr-2">
                 <label for="sameAsPermanent" class="text-sm text-gray-600">Same as Permanent Address</label>
             </div>
+            <!--parmanent address -->
+            <div class="mb-4">
+                <label for="permanentAddress" class="block text-sm font-medium text-gray-600">Permanent Address</label>
+                <textarea id="permanentAddress" name="permanentAddress"
+                    class="mt-1 p-2 w-full border rounded-md"></textarea>
+                <div id="permanentAddressError" class="text-red-500 text-sm mt-1"></div>
+            </div>
 
             <!-- Role -->
             <div class="mb-4">
@@ -88,14 +110,23 @@
                     <option value="user">User</option>
                 </select>
             </div>
-            <!--Choose Image-->
-            <label for="fileInput">Choose a file:</label>
-            <input type="file" id="fileInput" name="fileInput" accept=".jpg, .jpeg, .png, .gif">
+
+            <div class="flex gap-3">
+                <!--Choose Image-->
+                <label for="fileInput">Image:</label>
+                <input type="file" id="fileInput" name="fileInput" accept=".jpg, .jpeg, .png, .gif">
+                <!-- Image Preview -->
+                <img id="imagePreview" src="" alt="Image Preview"
+                    style="display: none; max-width: 5rem; max-height: 2rem;">
+
+            </div>
+
             <!-- Submit Button -->
             <div class="mt-6">
                 <button type="submit" id="submit-btn"
                     class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add User</button>
             </div>
+
         </form>
     </div>
     <script src="../src/users.js"></script>

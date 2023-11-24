@@ -1,10 +1,23 @@
 let Editid = new URLSearchParams(window.location.search).get('id');
-let storageData = JSON.parse(localStorage.getItem('users'));
-//getting elements//
+//let storageData = JSON.parse(localStorage.getItem('users'));//
+//getting elements for event listening//
 const submitBtn = document.getElementById("submit-btn");
 let fileInput = document.getElementById('fileInput');
+let checkBox = document.getElementById('sameAsPermanent');
+
+
+// Function to get users from localStorage
+function getUsersFromLocalStorage() {
+    const storedUsers = localStorage.getItem("users");
+    return storedUsers ? JSON.parse(storedUsers) : [];
+}
+// Function to save users to localStorage
+function saveUsersToLocalStorage(users) {
+    localStorage.setItem("users", JSON.stringify(users));
+}
+const users = getUsersFromLocalStorage();
 //for copying the user data on the time of edit//
-storageData.forEach(element => {
+users.forEach(element => {
     if (element.id == Editid) {
         document.getElementById('firstName').value = element.firstName;
         document.getElementById('lastName').value = element.lastName;
@@ -16,36 +29,28 @@ storageData.forEach(element => {
         document.getElementById('currentAddress').value = element.currentAddress;
         document.getElementById('sameAsPermanent').checked = element.sameAsPermanent;
         document.getElementById('role').value = element.role;
+        document.getElementById('bloodGroup').value = element.bloodGroup;
+        document.getElementById('permanentAddress').value = element.permanentAddress;
+
+        // Handle the image file
+        if (element.image) {
+            const imgElement = document.getElementById('imagePreview');
+            imgElement.src = element.image;
+            imgElement.style.display = 'inline-block';
+        }
+
+
+
+
 
     }
 });
-
-
-// Function to get users from localStorage
-function getUsersFromLocalStorage() {
-    const storedUsers = localStorage.getItem("users");
-    return storedUsers ? JSON.parse(storedUsers) : [];
-}
-
-
-
-// Function to save users to localStorage
-
-function saveUsersToLocalStorage(users) {
-    localStorage.setItem("users", JSON.stringify(users));
-}
-const users = getUsersFromLocalStorage();
-console.log(users)
 function submitForm(event) {
     event.preventDefault();
-
-
-    // Clear existing error messages
+    // Clear existing error messages//
     clearErrorMessages();
-
     // Validate the form fields
     let validationResults = validateForm();
-
     if (validationResults.isValid) {
         // If validation passes, create user object
         console.log(validationResults.isValid);
@@ -61,24 +66,21 @@ function submitForm(event) {
             currentAddress: document.getElementById('currentAddress').value,
             sameAsPermanent: document.getElementById('sameAsPermanent').checked,
             role: document.getElementById('role').value,
-            image: ""
-
-
+            image: "",
+            bloodGroup: document.getElementById('bloodGroup').value,
+            permanentAddress: document.getElementById('permanentAddress').value,
         };
         const selectedFile = document.getElementById("fileInput").files[0];
         console.log(selectedFile);
         const reader = new FileReader();
-
         reader.addEventListener(
             "load",
             () => {
                 console.log("File loaded");
-                // convert image file to base64 string
-                console.log("reader result: ", reader.result);
+                // convert image file to base64 string//
                 user.image = reader.result;
-                console.log("user.image updated: ", user);
-                console.log(users);
-                saveUsersToLocalStorage(users)//saving to local storage// 
+
+                saveUsersToLocalStorage(users);
 
             },
             false,
@@ -89,42 +91,30 @@ function submitForm(event) {
 
         }
 
-        // Inside the submitForm function, before the redirection
-        console.log("Final user object: ", user);
-        // console.log(selectedFile);
-
-
-
-        // Add user object to an array 
         //checking if edit has been clicked or not //
         if (Editid) {
             const index = users.findIndex((element) => element.id == Editid);
             if (index !== -1) {
                 users[index] = user;//replacing the previous user with updated one//
-                saveUsersToLocalStorage(users);
+                // saveUsersToLocalStorage(users);//
                 // Redirect to the user list page
-                window.location.href = 'usersList.html';
-
+                // window.location.href = 'usersList.html';//
 
 
             }
-        } else {
+        }
+        else {
             console.log("push: ");
             console.log(user);
             users.push(user);
             console.log("after push:");
             console.log(users);
 
-
-            // Save the updated array to local storage
-            saveUsersToLocalStorage(users);
+            // saveUsersToLocalStorage(users);//
             // Redirect to the user list page
-            window.location.href = 'usersList.html';
-
-
-
+            //window.location.href = 'usersList.html';//
         }
-
+        // Save the updated array to local storage 
         saveUsersToLocalStorage(users);
         // Redirect to the user list page
         window.location.href = 'usersList.html';
@@ -135,10 +125,9 @@ function submitForm(event) {
         displayErrorMessages(validationResults.errors);
     }
 }
-
 function validateForm() {
     // Validate required fields
-    const requiredFields = ['firstName', 'lastName', 'age', 'gender', 'email', 'dob', 'phoneNumber', 'currentAddress', 'role'];
+    const requiredFields = ['firstName', 'lastName', 'age', 'gender', 'email', 'dob', 'phoneNumber', 'currentAddress', 'role', 'bloodGroup', 'permanentAddress'];
     let isValid = true;
     const errors = {};
 
@@ -191,6 +180,24 @@ function validateForm() {
         errors.dob = 'Please enter a valid date of birth (YYYY-MM-DD)';
         isValid = false;
     }
+    // Validate blood group
+    const bloodGroupValue = document.getElementById('bloodGroup').value.trim();
+    const bloodGroupErrorElement = document.getElementById('bloodGroupError');
+    if (bloodGroupValue === '') {
+        errors.bloodGroup = 'Please enter a value for Blood Group';
+        isValid = false;
+    }
+
+    // Validate permanent address (if not same as current address)
+    const sameAsPermanent = document.getElementById('sameAsPermanent').checked;
+    if (!sameAsPermanent) {
+        const permanentAddressValue = document.getElementById('permanentAddress').value.trim();
+        const permanentAddressErrorElement = document.getElementById('permanentAddressError');
+        if (permanentAddressValue === '') {
+            errors.permanentAddress = 'Please enter a value for Permanent Address';
+            isValid = false;
+        }
+    }
 
 
 
@@ -209,6 +216,8 @@ function getFieldLabel(field) {
         phoneNumber: 'Phone Number',
         currentAddress: 'Current Address',
         role: 'Role',
+        parmanentAddress: "parmanent Address",
+        bloodGroup: "blood Group"
     };
 
     return fieldLabels[field] || field;
@@ -232,7 +241,7 @@ function isValidPhoneNumber(phoneNumber) {
 }
 
 function isValidDateOfBirth(dob) {
-    // Check if date of birth is in the format YYYY-MM-DD
+    // Check if date of birth is in right format//
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     return dateRegex.test(dob);
 }
@@ -246,13 +255,17 @@ function clearErrorMessages() {
 }
 
 function displayErrorMessages(errors) {
-    // Display error messages for each field
+    // Display error messages for each field//
     for (const field in errors) {
         const errorElement = document.getElementById(`${field}Error`);
         errorElement.textContent = errors[field];
     }
 }
+//all event listeners//
 submitBtn.addEventListener("click", submitForm)
 submitBtn.addEventListener("click", validateForm)
-
-
+checkBox.addEventListener('change', function () {
+    let currentAddress = document.getElementById('currentAddress').value;
+    document.getElementById('permanentAddress').value = this.checked ? currentAddress : '';
+}
+)
