@@ -4,8 +4,6 @@ let Editid = new URLSearchParams(window.location.search).get('id');
 const submitBtn = document.getElementById("submit-btn");
 let fileInput = document.getElementById('fileInput');
 let checkBox = document.getElementById('sameAsPermanent');
-
-
 // Function to get users from localStorage
 function getUsersFromLocalStorage() {
     const storedUsers = localStorage.getItem("users");
@@ -120,7 +118,8 @@ function submitForm(event) {
         window.location.href = 'usersList.html';
 
 
-    } else {
+    }
+    else {
         // Display error messages for each field
         displayErrorMessages(validationResults.errors);
     }
