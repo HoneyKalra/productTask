@@ -56,6 +56,7 @@ async function postProduct() {
 
 
 }
+//calling post product function//
 postProduct();
 
 

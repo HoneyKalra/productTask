@@ -51,7 +51,6 @@ function submitForm(event) {
     let validationResults = validateForm();
     if (validationResults.isValid) {
         // If validation passes, create user object
-        console.log(validationResults.isValid);
         const user = {
             id: new Date().valueOf(),
             firstName: document.getElementById('firstName').value,
@@ -126,7 +125,7 @@ function submitForm(event) {
 }
 function validateForm() {
     // Validate required fields
-    const requiredFields = ['firstName', 'lastName', 'age', 'gender', 'email', 'dob', 'phoneNumber', 'currentAddress', 'role', 'bloodGroup', 'permanentAddress'];
+    const requiredFields = ['firstName', 'lastName', 'age', 'gender', 'email', 'dob', 'phoneNumber', 'currentAddress', 'role', 'bloodGroup', 'permanentAddress', 'fileInput'];
     let isValid = true;
     const errors = {};
 
@@ -216,7 +215,8 @@ function getFieldLabel(field) {
         currentAddress: 'Current Address',
         role: 'Role',
         parmanentAddress: "parmanent Address",
-        bloodGroup: "blood Group"
+        bloodGroup: "blood Group",
+        image: "fileInput"
     };
 
     return fieldLabels[field] || field;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch data</title>
+    <link rel="stylesheet" href="../public/css/output.css">
+</head>
+
+<body>
+    <header class="border">
+        <nav class=" p-4  flex  gap-10 ">
+
+            <form autocomplete="off" class="flex gap-10  ">
+                <label for="js-product-search">
+                    <input type="js-product-search" name="search" id="js-product-search"
+                        class="w-96 px-4 py-2 border rounded-3xl " placeholder="Search Here...">
+                </label>
+
+
+                <select name="filter" id="js-categories"
+                    class="w-52 border px-4 py-2 text-gray-800  font-semibold text-base">
+
+                    <option value="groceries">ALL</option>
+
+                </select>
+
+            </form>
+        </nav>
+    </header>
+    <!--errors div-->
+    <div id="js-error-display" class="container mx-auto mt-4 text-red-600"></div>
+
+    <ul id="js-products" class="mt-4 grid grid-cols-3"></ul>
+    <script src="./products.js"></script>
+</body>
+
+</html>
