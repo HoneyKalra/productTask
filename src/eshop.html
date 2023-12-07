@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/css/output.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="bg-blue-500 py-2">
+
+            <form class="flex justify-center items-center" autocomplete="off">
+                <label input id="js-product-search">
+                    <input type="text" id="js-product-search" class="w-96 px-4 py-2 border rounded-3xl  "
+                        placeholder="Search Products Here...">
+                </label>
+
+            </form>
+        </nav>
+
+    </header>
+    <main>
+        <!--error message-->
+        <p id=" js-error-display" class="container mx-auto mt-4 text-red-600"></p>
+        <!--products cotainer-->
+
+        <ul class="mt-4 grid grid-cols-3  " id="js-products-container">
+
+        </ul>
+    </main>
+    <script src="./eshop.js" defer></script>
+
+</body>
+
+</html>
