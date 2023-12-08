@@ -10,6 +10,7 @@
         productsContainer: document.getElementById("js-products-container"),
         productSearchInput: document.getElementById("js-product-search"),
         errorDisplay: document.getElementById("js-error-display"),
+        listedProduct: document.getElementById("js-productItem"),
 
         //functions that clear existing products in case of errors and painting new products//
         clearProducts: function () {
@@ -20,7 +21,7 @@
         //function handles error//
         displayError: function (errorMessage) {
             // Display error message whenever promise fails//
-            // this.errorDisplay.innerText = errorMessage;//
+            this.errorDisplay.innerText = errorMessage;
         },
         //function displays the product results//
         displayProducts: function (products) {
@@ -36,14 +37,15 @@
             //if products are fetched correctly//
             products.forEach((item) => {
                 //creation //
-                const listedProduct = document.createElement("li");
-                listedProduct.setAttribute('class', 'mt-10 p-1 flex flex-col gap-8 bg-white border-gray-200 rounded-lg overflow-hidden shadow');
+
+                this.listedProduct = document.createElement("li");
+                this.listedProduct.setAttribute('class', 'js-productItem  mt-6, p-4 bg-white border border-gray-300 rounded-md shadow-md, hover:shadow-lg transition-transform transform duration-300 ease-in-out hover:-translate-y-1 flex flex-col justify-center items-center');
 
                 const link = document.createElement("a");
                 const productImage = document.createElement("img");
 
                 productImage.setAttribute('src', item.images[0]);
-                productImage.className = 'w-20 h-20 object-cover';
+                productImage.className = 'w-32 h-32 object-cover';
 
                 const productDescription = document.createElement('p');
                 productDescription.innerText = item.title;
@@ -63,8 +65,9 @@
                 buyNowButton.className = 'bg-blue-500 hover:bg-blue-700 w-1/2 text-white font-bold py-2 px-4 rounded addTocart';
                 //appending//
                 link.appendChild(productImage);
-                listedProduct.append(link, productDescription, actualPrice, discountedPrice, buyNowButton);
-                this.productsContainer.appendChild(listedProduct)
+                this.listedProduct.append(link, productDescription, actualPrice, discountedPrice, buyNowButton);
+                this.productsContainer.className = 'grid grid-cols-1  sm:grid grid-cols-3 md:grid-cols-3 gap-8'
+                this.productsContainer.appendChild(this.listedProduct)
 
             });
         },
@@ -116,6 +119,7 @@
 
                 if (response.ok) {
                     const jsonData = await response.json();
+                    console.log(jsonData)
                     this.displayProducts(jsonData.products);
                     return; //early return//
                 }
@@ -150,13 +154,13 @@
 
         },
 
-
-
         bind: function () {
 
             this.fetchProductsAndSave();
+            //this.productItems.addEventListener("click", this.imageMagnifier)
             //event listener on input search//
             const debouncedSearchProducts = this.debouncedSearch(this.searchProducts, 500)
+            console.log(this.productItems)
             this.productSearchInput.addEventListener("input", (ev) => {
                 const userInput = ev.target.value.trim();
                 debouncedSearchProducts(userInput)
@@ -185,6 +189,8 @@
 
 
         }
+
+
 
 
 

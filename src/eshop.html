@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../public/css/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.0/viewer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.0/viewer.min.js"></script>
 </head>
 
 <body>
@@ -13,24 +15,32 @@
     <header>
         <nav class="bg-blue-500 py-2">
 
-            <form class="flex justify-center items-center" autocomplete="off">
+            <form class="flex justify-center items-center gap-8" autocomplete="off">
                 <label input id="js-product-search">
-                    <input type="text" id="js-product-search" class="w-96 px-4 py-2 border rounded-3xl  "
+                    <input type="text" id="js-product-search" class="w-48  px-4 py-2 border rounded-3xl  "
                         placeholder="Search Products Here...">
                 </label>
+                <a href="orderSummary.html"
+                    class="bg-green-500  ml-8  text-white font-bold py-2.5 px-4 rounded-full flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                    Invoice
+                </a>
 
             </form>
         </nav>
 
     </header>
     <main>
-        <!--error message-->
+        <!--error message container-->
         <p id=" js-error-display" class="container mx-auto mt-4 text-red-600"></p>
-        <!--products cotainer-->
 
-        <ul class="mt-4 grid grid-cols-3  " id="js-products-container">
-
+        <ul id="js-products-container">
+            <!-- Each grid item -->
         </ul>
+
     </main>
     <script src="./eshop.js" defer></script>
 

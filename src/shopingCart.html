@@ -11,7 +11,7 @@
 
 <body class="font-sans">
 
-    <header class="bg-blue-300 text-white p-4 text-left text-xl">
+    <header class="bg-blue-400 text-white p-4 text-left text-xl">
         Shopping Cart
     </header>
 
@@ -24,10 +24,18 @@
     </main>
 
     <footer class="bg-gray-100 p-4 text-center">
+        <div class="text-center font-bold">ORDER SUMMARY</div>
+        <div class="flex justify-between">
+            <div class="text-summary mt-4 font-bold text-lg">SubTotal</div>
+            <div id="js-total" class="text-summary mt-4 font-bold text-lg"></div>
+        </div>
+        <a id="js-proceeed-checkout" href="./payment.html"
+            class="bg-blue-500 w-1/2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            CheckOut</a>
 
-        <div id="js-total" class="text-center mt-4 font-bold text-xl"></div>
 
     </footer>
+
 
 </body>
 <script src="./shopingCart.js"></script>

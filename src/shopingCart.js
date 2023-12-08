@@ -11,6 +11,7 @@
         //getting elements and storing them as a key//
         cartItemsWrapper: document.getElementById("js-cart-container"),
         totalDisplay: document.getElementById("js-total"),
+        checkOutBtn: document.getElementById("js-proceed-checkout"),
 
 
         displayItems: function () {
@@ -106,7 +107,7 @@
         bind: function () {
 
             this.displayItems();
-
+            //event lisneter on buy now//
             this.cartItemsWrapper.addEventListener("click", (event) => {
                 const targetedElement = event.target;
 
@@ -140,6 +141,9 @@
                     }
                 }
             });
+
+
+
 
         }
 

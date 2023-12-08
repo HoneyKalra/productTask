@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <title>Delivery Info</title>
 
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="../public/css/output.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 </head>
 
 <body class="bg-gray-100 p-8">
@@ -16,50 +16,56 @@
 
         <h2 class="text-2xl font-semibold mb-4">Delivery Information</h2>
 
-        <!-- Form -->
-        <form id="js-user-details">
+        <form id="js-user-details" autocomplete="off">
 
-            <!-- First Name -->
+
             <div class="mb-4">
                 <label for="js-firstName" class="block text-gray-600 text-sm font-medium mb-2">First Name</label>
-                <input type="text" id="js-firstName" name="js-firstName"
+                <input type="text" id="js-firstName" name="firstName"
                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-                <div id="js-firstNameError" class="text-red-600  font-size:1rem mt-1"></div>
+                <div id="firstNameError" class="text-red-600  font-size:1rem mt-1"></div>
             </div>
 
-            <!-- Last Name -->
+
             <div class="mb-4">
                 <label for="js-lastName" class="block text-gray-600 text-sm font-medium mb-2">Last Name</label>
-                <input type="text" id="js-lastName" name="js-lastName"
+                <input type="text" id="js-lastName" name="lastName"
                     class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-                <div id="js-lastNameError" class="error"></div>
+                <div id="lastNameError" class="text-red-600  font-size:1rem mt-1"></div>
             </div>
-            <div class="flex justify-between" id="city-states-wrapper">
-                <!-- City -->
+
+            <div class="mb-4">
+                <label for="js-address" class="block text-gray-600 text-sm font-medium mb-2">Address</label>
+                <input type="text" id="js-address" name="address"
+                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                <div id="addressError" class="text-red-600  font-size:1rem mt-1"></div>
+            </div>
+            <div class="flex gap-3" id="city-states-wrapper">
+
                 <div class="mb-4">
                     <label for="js-city" class="block text-gray-600 text-sm font-medium mb-2">City</label>
                     <input type="text" id="js-city" name="city"
                         class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-                    <div id="js-cityError" class="error"></div>
+                    <div id="cityError" class="text-red-600  font-size:1rem mt-1"></div>
                 </div>
 
-                <!-- State -->
+
                 <div class="mb-4">
                     <label for="js-state" class="block text-gray-600 text-sm font-medium mb-2">State</label>
-                    <input type="text" id="state" name="state"
+                    <input type="text" id="js-state" name="state"
                         class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-                    <div id="js-stateError" class="error"></div>
+                    <div id="stateError" class="text-red-600  font-size:1rem mt-1"></div>
                 </div>
 
             </div>
 
-            <div class="flex justify-between">
+            <div class="flex gap-3">
                 <!-- ZIP -->
                 <div class="mb-4">
                     <label for="js-zip" class="block text-gray-600 text-sm font-medium mb-2">ZIP Code</label>
                     <input type="text" id="js-zip" name="zip"
                         class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-                    <div id="js-zipError" class="error"></div>
+                    <div id="zipError" class="text-red-600  font-size:1rem mt-1"></div>
                 </div>
 
                 <!-- Phone -->
@@ -67,7 +73,7 @@
                     <label for="js-phone" class="block text-gray-600 text-sm font-medium mb-2">Phone Number</label>
                     <input type="text" id="js-phone" name="phone"
                         class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-                    <div id="js-phoneError" class="error"></div>
+                    <div id="phoneError" class="text-red-600  font-size:1rem mt-1"></div>
                 </div>
 
             </div>
@@ -75,57 +81,23 @@
 
             <!-- Submit Button -->
             <div class="flex items-center justify-end">
-                <button type="submit"
-                    class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                    Submit
-                </button>
+                <button id="rzp-button1"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Proceed to
+                    Payment</button>
+
             </div>
 
         </form>
 
     </div>
 
-    <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
 
-        <h2 class="text-2xl font-semibold mb-4">Payment Information</h2>
-
-        <!-- Form -->
-        <form>
-
-            <!-- Card Number -->
-            <div class="mb-4">
-                <label for="cardNumber" class="block text-gray-600 text-sm font-medium mb-2">Card Number</label>
-                <input type="text" id="cardNumber" name="cardNumber"
-                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-            </div>
-
-            <!-- CVC -->
-            <div class="mb-6">
-                <label for="cvc" class="block text-gray-600 text-sm font-medium mb-2">CVC (Card Verification
-                    Code)</label>
-                <input type="text" id="cvc" name="cvc"
-                    class="w-full border rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
-            </div>
-            <!--expiry field-->
-            <div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
-                <label for="expiry" class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                <input type="text" id="expiry" name="expiry" placeholder="MM / YY"
-                    class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200">
+    <script type="module" src="payment.js" defer></script>
 
 
-            </div>
 
-            <!-- Submit Button -->
-            <div class="flex items-center justify-end">
-                <button type="submit"
-                    class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
-                    Pay Now
-                </button>
-            </div>
 
-        </form>
 
-    </div>
 
 </body>
 
